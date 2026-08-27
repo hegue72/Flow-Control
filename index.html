@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>流管作業時間計算系統</title>
   <style>
     /* 全局樣式設定 */
@@ -17,7 +17,7 @@
       background-color: #f0f4f8;
       color: #0f172a;
       line-height: 1.4;
-      padding: 12px;
+      padding: 8px;
     }
 
     .container {
@@ -34,10 +34,10 @@
       top: 0;
       z-index: 100;
       background-color: #f0f4f8;
-      padding-bottom: 6px;
+      padding-bottom: 4px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
       box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.1);
     }
 
@@ -45,31 +45,31 @@
     header {
       background-color: #0f2a4a;
       color: #ffffff;
-      padding: 10px 16px;
+      padding: 8px 12px;
       border-radius: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 8px;
     }
 
     .header-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     /* 機場塔台 SVG 圖示 */
     .tower-icon-custom {
-      height: 38px;
+      height: 34px;
       width: auto;
       flex-shrink: 0;
       display: block;
     }
 
     .header-left h1 {
-      font-size: 1.5rem;
+      font-size: 1.35rem;
       font-weight: bold;
       letter-spacing: 1px;
       white-space: nowrap;
@@ -81,7 +81,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      min-width: 280px;
+      min-width: 240px;
     }
 
     .search-box-wrapper {
@@ -97,8 +97,8 @@
     }
 
     .search-icon-img {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       margin-right: 6px;
       flex-shrink: 0;
     }
@@ -106,10 +106,10 @@
     .search-input {
       border: none;
       outline: none;
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: bold;
       width: 100%;
-      padding: 4px 0;
+      padding: 3px 0;
       color: #0f172a;
       font-family: inherit;
     }
@@ -127,24 +127,24 @@
     .header-right {
       display: flex;
       align-items: center;
-      gap: 16px;
-      font-size: 1.05rem;
+      gap: 12px;
+      font-size: 0.95rem;
     }
 
     .active-type-badge {
       background-color: #f97316;
       color: #ffffff;
-      padding: 4px 14px;
+      padding: 3px 12px;
       border-radius: 9999px;
       font-weight: bold;
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       box-shadow: 0 2px 4px rgba(249, 115, 22, 0.4);
       display: inline-block;
     }
 
     .save-notice {
       color: #86efac;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       white-space: nowrap;
     }
 
@@ -170,29 +170,41 @@
     .type-selection-bar {
       background-color: #ffffff;
       border-radius: 6px;
-      padding: 4px 10px;
+      padding: 4px 8px;
       border: 1px solid #cbd5e1;
       display: flex;
       align-items: center;
       gap: 6px;
-      flex-wrap: wrap;
     }
 
     .type-title-badge {
       background-color: #0f2a4a;
       color: #ffffff;
       font-weight: bold;
-      font-size: 0.95rem;
-      padding: 4px 10px;
+      font-size: 0.9rem;
+      padding: 4px 8px;
       border-radius: 4px;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .type-buttons-inline {
       display: flex;
       align-items: center;
       gap: 4px;
-      flex-wrap: wrap;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 2px;
+      flex: 1;
+    }
+
+    .type-buttons-inline::-webkit-scrollbar {
+      height: 3px;
+    }
+    .type-buttons-inline::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
     }
 
     /* 按鈕樣式 */
@@ -211,6 +223,7 @@
       justify-content: center;
       font-family: inherit;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .btn:hover {
@@ -220,13 +233,13 @@
 
     .btn-type-sm {
       padding: 4px 10px;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: bold;
       border-radius: 4px;
       border: 1px solid #cbd5e1;
       background-color: #f8fafc;
       color: #0f172a;
-      min-height: 32px;
+      min-height: 30px;
     }
 
     .btn-type-sm.active {
@@ -238,13 +251,14 @@
 
     .btn-filter-pill {
       padding: 3px 10px;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: bold;
       border-radius: 9999px;
       border: 1px solid #94a3b8;
       background-color: #ffffff;
       color: #334155;
       cursor: pointer;
+      flex-shrink: 0;
     }
 
     .btn-filter-pill.active {
@@ -290,22 +304,23 @@
     /* 視圖頁籤 */
     .view-tabs {
       display: flex;
-      gap: 6px;
+      gap: 4px;
       background-color: #ffffff;
-      padding: 4px 8px;
+      padding: 4px 6px;
       border-radius: 6px;
       border: 1px solid #cbd5e1;
+      overflow-x: auto;
     }
 
     .tab-btn {
-      padding: 6px 16px;
+      padding: 6px 12px;
       font-weight: bold;
       background: none;
       border: none;
       border-bottom: 3px solid transparent;
       cursor: pointer;
       color: #64748b;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-family: inherit;
       white-space: nowrap;
       display: inline-flex;
@@ -314,8 +329,8 @@
     }
 
     .tab-btn svg {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       fill: none;
       stroke: currentColor;
       stroke-width: 2;
@@ -332,11 +347,11 @@
     .settings-bar {
       background-color: #ffffff;
       border-radius: 6px;
-      padding: 6px 12px;
+      padding: 6px 10px;
       border: 1px solid #cbd5e1;
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 8px;
       align-items: center;
       justify-content: space-between;
     }
@@ -344,36 +359,35 @@
     .minutes-input-group {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 1.1rem;
+      gap: 6px;
+      font-size: 1rem;
       font-weight: bold;
       flex-wrap: wrap;
     }
 
     .input-field {
-      padding: 4px 8px;
+      padding: 3px 6px;
       border: 1px solid #cbd5e1;
       border-radius: 4px;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: bold;
       font-family: inherit;
-      width: 90px;
+      width: 80px;
       text-align: center;
     }
 
     .notice-highlight {
-      margin-left: 12px;
+      margin-left: 8px;
       color: #92400e;
       background-color: #fef3c7;
-      border: 2px solid #f59e0b;
-      padding: 5px 12px;
+      border: 1.5px solid #f59e0b;
+      padding: 3px 8px;
       border-radius: 6px;
-      font-size: 1.15rem;
+      font-size: 0.95rem;
       font-weight: bold;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      box-shadow: 0 2px 4px rgba(245, 158, 11, 0.2);
+      gap: 4px;
     }
 
     .input-error {
@@ -390,7 +404,7 @@
     .action-buttons-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 4px;
     }
 
     /* 表格控制與高對比視覺 */
@@ -400,6 +414,7 @@
       border: 1px solid #cbd5e1;
       border-radius: 6px;
       background-color: #ffffff;
+      -webkit-overflow-scrolling: touch;
     }
 
     .data-table {
@@ -407,15 +422,15 @@
       border-collapse: separate;
       border-spacing: 0;
       text-align: center;
-      min-width: 920px;
+      min-width: 780px;
     }
 
     .data-table th {
       background-color: #0f2a4a;
       color: #ffffff;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: bold;
-      padding: 6px 8px;
+      padding: 6px;
       position: sticky;
       top: 0;
       z-index: 10;
@@ -423,10 +438,10 @@
     }
 
     .data-table td {
-      padding: 3px 6px;
+      padding: 3px 4px;
       border-bottom: 1px solid #cbd5e1;
       border-right: 1px solid #e2e8f0;
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: bold;
       white-space: nowrap !important;
     }
@@ -469,13 +484,13 @@
 
     .table-input {
       width: 100%;
-      padding: 2px 6px;
-      height: 34px;
+      padding: 2px 4px;
+      height: 32px;
       border: 1px solid #cbd5e1;
       border-radius: 4px;
       text-align: center;
       font-family: inherit;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: bold;
       background-color: #fefef0;
       white-space: nowrap;
@@ -495,12 +510,12 @@
 
     .cartoon-cell-51 {
       font-family: "Impact", "Comic Sans MS", "Arial Black", "微軟正黑體", sans-serif !important;
-      font-size: 1.8rem !important;
+      font-size: 1.5rem !important;
       font-weight: 900 !important;
       color: #dc2626 !important;
       text-shadow: none !important;
       letter-spacing: 2px;
-      padding: 12px !important;
+      padding: 10px !important;
       text-align: center;
     }
 
@@ -508,12 +523,12 @@
       background-color: #cbd5e1;
       color: #0f172a;
       font-weight: bold;
-      font-size: 1.15rem;
-      padding: 2px 6px;
+      font-size: 1.05rem;
+      padding: 2px 4px;
       border-radius: 4px;
       display: block;
-      min-height: 32px;
-      line-height: 28px;
+      min-height: 30px;
+      line-height: 26px;
       white-space: nowrap !important;
     }
 
@@ -525,27 +540,27 @@
     /* 歷史紀錄統計卡片 */
     .stats-card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
-      margin-bottom: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 8px;
+      margin-bottom: 12px;
     }
 
     .stat-box {
       background-color: #f8fafc;
       border: 1px solid #cbd5e1;
       border-radius: 6px;
-      padding: 12px;
+      padding: 8px;
       text-align: center;
     }
 
     .stat-number {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: bold;
       color: #1e40af;
     }
 
     .stat-label {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #64748b;
       font-weight: bold;
     }
@@ -553,12 +568,12 @@
     .filter-controls-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 8px;
       align-items: center;
       background-color: #f1f5f9;
-      padding: 10px 14px;
+      padding: 8px 10px;
       border-radius: 6px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       border: 1px solid #cbd5e1;
     }
 
@@ -568,10 +583,33 @@
       gap: 4px;
       align-items: center;
       background: #ffffff;
-      padding: 4px 8px;
+      padding: 4px;
       border-radius: 4px;
       border: 1px solid #cbd5e1;
-      max-width: 600px;
+      max-width: 100%;
+    }
+
+    /* 手機 (RWD) 專屬佈局微調 */
+    @media (max-width: 768px) {
+      body { padding: 4px; }
+      header { padding: 6px 10px; }
+      .header-left h1 { font-size: 1.2rem; }
+      .tower-icon-custom { height: 28px; }
+      .active-type-badge { font-size: 1rem; padding: 2px 10px; }
+      .save-notice { display: none; }
+      
+      .header-center-search { min-width: 100%; order: 3; }
+      .search-box-wrapper { max-width: 100%; }
+
+      .type-selection-bar { padding: 4px; }
+      .notice-highlight { margin-left: 0; width: 100%; font-size: 0.9rem; justify-content: center; }
+      
+      .data-table th, .data-table td { font-size: 0.95rem; padding: 3px 2px; }
+      .table-input, .read-only-cell { font-size: 0.95rem; height: 30px; line-height: 24px; }
+      .cartoon-cell-51 { font-size: 1.2rem !important; }
+      
+      .filter-controls-bar { flex-direction: column; align-items: stretch; }
+      .multi-type-container { max-width: 100%; }
     }
 
     .modal-backdrop {
@@ -640,11 +678,8 @@
       <header>
         <div class="header-left">
           <svg class="tower-icon-custom" viewBox="0 0 100 240" xmlns="http://www.w3.org/2000/svg" aria-label="機場塔臺圖示">
-            <!-- 頂蓋 Roof Cap -->
             <rect x="17" y="10" width="66" height="12" fill="#525252" rx="2" />
-            <!-- 管制室玻璃 Glass Cabin -->
             <path d="M 20 22 L 80 22 L 74 48 L 26 48 Z" fill="#9ca3af" />
-            <!-- 窗櫺 Vertical Mullions -->
             <line x1="28" y1="22" x2="32" y2="48" stroke="#374151" stroke-width="1.5" />
             <line x1="36" y1="22" x2="39" y2="48" stroke="#374151" stroke-width="1.5" />
             <line x1="44" y1="22" x2="46" y2="48" stroke="#374151" stroke-width="1.5" />
@@ -652,20 +687,14 @@
             <line x1="60" y1="22" x2="60" y2="48" stroke="#374151" stroke-width="1.5" />
             <line x1="68" y1="22" x2="67" y2="48" stroke="#374151" stroke-width="1.5" />
             <line x1="75" y1="22" x2="72" y2="48" stroke="#374151" stroke-width="1.5" />
-            <!-- 管制室下平台 Band 1 -->
             <rect x="22" y="48" width="56" height="10" fill="#6b7280" />
-            <!-- 管制室下平台 Band 2 -->
             <rect x="12" y="58" width="76" height="12" fill="#d1d5db" />
-            <!-- 中層結構包覆體 Upper Shell Tier -->
             <path d="M 10 70 L 60 70 L 72 110 L 10 110 Z" fill="#e5e7eb" />
             <path d="M 60 70 L 90 70 L 88 110 L 72 110 Z" fill="#4b5563" />
-            <!-- 中層橫像紋理/窗口 -->
             <rect x="12" y="80" width="46" height="16" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1" />
             <rect x="62" y="80" width="24" height="16" fill="#374151" />
-            <!-- 主塔柱陰影區 (右側暗色) Shaft Dark Shadow -->
             <path d="M 52 110 C 65 140, 68 180, 68 235 L 52 235 Z" fill="#4b5563" />
             <path d="M 52 110 L 68 235 L 82 235 C 82 180, 88 140, 88 110 Z" fill="#6b7280" />
-            <!-- 主塔柱受光區 (左側亮色) Shaft Light Side -->
             <path d="M 12 110 C 12 140, 32 180, 32 235 L 52 235 L 52 110 Z" fill="#e5e7eb" />
           </svg>
           <h1>流管作業</h1>
@@ -803,7 +832,7 @@
       </div>
     </section>
 
-    <!-- F. 歷史紀錄與統計分析面板區 (日期改為原生月曆選單) -->
+    <!-- F. 歷史紀錄與統計分析面板區 -->
     <section id="historyView" class="hidden">
       <div style="background:#fff; padding:14px; border-radius:6px; border:1px solid #cbd5e1;">
         
@@ -823,7 +852,7 @@
           </div>
         </div>
 
-        <!-- 統計篩選列 (升級日期為原生月曆選擇器 input[type=date]) -->
+        <!-- 統計篩選列 -->
         <div class="filter-controls-bar">
           <div style="display:flex; align-items:center; gap:6px;">
             <label for="filterDate" style="font-weight:bold;">日期篩選 (月曆)：</label>
@@ -927,7 +956,7 @@
     }
 
     /**
-     * 呼號原生處理 (不強轉 IME)
+     * 呼號原生處理
      */
     function sanitizeCallsign(val) {
       if (val === null || val === undefined) return '';
@@ -1082,7 +1111,7 @@
     }
 
     /**
-     * 讀取與自動擴充相容
+     * 讀取與載入資料
      */
     function loadData() {
       try {
@@ -1604,20 +1633,16 @@
     }
 
     /**
-     * 歷史紀錄與統計分析面板 (升級日期選單為原生月曆 input[type=date])
+     * 歷史紀錄與統計分析面板
      */
     function renderHistoryAndStatistics() {
-      // 1. 多類型動態標籤
       renderMultiTypeFilterPills();
-
-      // 2. 時段選單
       updateHourDropdown();
-
       filterAndRenderHistoryTable();
     }
 
     /**
-     * 渲染多類型動態篩選標籤按鈕 (包含 ALL 全選按鈕)
+     * 渲染多類型動態篩選標籤按鈕
      */
     function renderMultiTypeFilterPills() {
       const container = document.getElementById('multiTypePillsContainer');
@@ -1696,11 +1721,11 @@
     }
 
     /**
-     * 篩選並渲染歷史紀錄數據表 (支援月曆日期篩選)
+     * 篩選並渲染歷史紀錄數據表
      */
     function filterAndRenderHistoryTable() {
       const logs = appState.historyLogs || [];
-      const filterDateVal = document.getElementById('filterDate').value; // 月曆 input 數值 (YYYY-MM-DD)
+      const filterDateVal = document.getElementById('filterDate').value;
       const selectedHour = document.getElementById('filterHourSelect').value;
 
       let filtered = logs.filter(l => {
@@ -1756,7 +1781,7 @@
     }
 
     /**
-     * Excel CSV 匯出 (正確轉為 19:14 格式與 ="19:14" 公式保護)
+     * Excel CSV 匯出
      */
     function exportHistoryCSV() {
       const logs = appState.historyLogs || [];
